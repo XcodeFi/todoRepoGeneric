@@ -1,13 +1,12 @@
-﻿using System;
+﻿using TodoGenericRepo.iOS;
+using System;
 using System.IO;
-using Xamarin.Forms;
-using TodoGenericRepo.iOS;
 
-[assembly: Dependency(typeof(FileHelper))]
+[assembly: Xamarin.Forms.Dependency(typeof(FileHelper))]
 namespace TodoGenericRepo.iOS
 {
-	public class FileHelper : IFileHelper
-	{
+	public class FileHelper: IFileHelper
+    {
 		public string GetLocalFilePath(string filename)
 		{
 			string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
