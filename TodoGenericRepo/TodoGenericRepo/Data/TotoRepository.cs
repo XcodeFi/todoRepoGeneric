@@ -11,7 +11,7 @@ namespace TodoGenericRepo.Data
     {
         public TotoRepository() : base(App.DbConnectionAsync,App.DbConnection)
         {
-            App.DbConnectionAsync.CreateTableAsync<TodoItem>();
+            
         }
     }
 }

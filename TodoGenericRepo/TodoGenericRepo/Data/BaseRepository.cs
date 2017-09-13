@@ -21,6 +21,10 @@ namespace TodoGenericRepo.Data
         {
             this._db = db;
             this._dbAsync = dbAsync;
+            if (!TableExists())
+            {
+                _dbAsync.CreateTableAsync<T>();
+            }
         }
 
         #region Async method
@@ -181,34 +185,17 @@ namespace TodoGenericRepo.Data
         }
         #endregion
 
-        //public bool isTableExists(String tableName, bool openDb)
-        //{
-        //    if (openDb)
-        //    {
-        //        if (_db == null || !_db.())
-        //        {
-        //            mDatabase = getReadableDatabase();
-        //        }
-
-        //        if (!mDatabase.isReadOnly())
-        //        {
-        //            mDatabase.close();
-        //            mDatabase = getReadableDatabase();
-        //        }
-        //    }
-
-        //    Cursor cursor = mDatabase.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '" + tableName + "'", null);
-        //    if (cursor != null)
-        //    {
-        //        if (cursor.getCount() > 0)
-        //        {
-        //            cursor.close();
-        //            return true;
-        //        }
-        //        cursor.close();
-        //    }
-        //    return false;
-        //}
+        #region private method
+        bool TableExists()
+        {
+            lock (locker)
+            {
+                const string cmdText = "SELECT name FROM sqlite_master WHERE type='table' AND name=?";
+                var cmd = _db.CreateCommand(cmdText, typeof(T).Name);
+                return cmd.ExecuteScalar<string>() != null;
+            }
+        }
+        #endregion
 
     }
 }
