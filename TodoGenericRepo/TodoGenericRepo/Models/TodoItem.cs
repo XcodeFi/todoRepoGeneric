@@ -1,11 +1,10 @@
 ﻿using SQLite;
+using TodoGenericRepo.Models;
 
 namespace TodoGenericRepo
 {
-	public class TodoItem
-	{
-		[PrimaryKey, AutoIncrement]
-		public int ID { get; set; }
+	public class TodoItem: Entity
+    {
 		public string Name { get; set; }
 		public string Notes { get; set; }
 		public bool Done { get; set; }

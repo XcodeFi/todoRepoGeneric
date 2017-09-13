@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TodoGenericRepo.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,21 +12,27 @@ namespace TodoGenericRepo.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TodoDetailPage : ContentPage
     {
+
+        TotoRepository totoRepo = null;
         public TodoDetailPage()
         {
             InitializeComponent();
+            totoRepo = new TotoRepository();
+
         }
         async void OnSaveClicked(object sender, EventArgs e)
         {
             var todoItem = (TodoItem)BindingContext;
-            await App.Database.SaveItemAsync(todoItem);
+
+            await totoRepo.Insert(todoItem);
+
             await Navigation.PopAsync();
         }
 
         async void OnDeleteClicked(object sender, EventArgs e)
         {
             var todoItem = (TodoItem)BindingContext;
-            await App.Database.DeleteItemAsync(todoItem);
+            await totoRepo.Delete(todoItem);
             await Navigation.PopAsync();
         }
 

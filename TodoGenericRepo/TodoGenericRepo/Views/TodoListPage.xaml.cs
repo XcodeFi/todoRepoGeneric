@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using TodoGenericRepo.Data;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,9 +17,11 @@ namespace TodoGenericRepo.Views
         {
             base.OnAppearing();
 
+            var totoRepo = new TotoRepository();
+
             // Reset the 'resume' id, since we just want to re-start here
             ((App)App.Current).ResumeAtTodoId = -1;
-            listView.ItemsSource = await App.Database.GetItemsAsync();
+            listView.ItemsSource = await totoRepo.Get();
         }
 
         async void OnItemAdded(object sender, EventArgs e)
