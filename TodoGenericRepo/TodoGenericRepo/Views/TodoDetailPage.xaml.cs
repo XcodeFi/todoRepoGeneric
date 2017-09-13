@@ -24,7 +24,14 @@ namespace TodoGenericRepo.Views
         {
             var todoItem = (TodoItem)BindingContext;
 
-            await totoRepo.Insert(todoItem);
+            if (todoItem.ID <= 0)
+            {
+                await totoRepo.InsertAsync(todoItem);
+            }
+            else
+            {
+                await totoRepo.UpdateAsync(todoItem);
+            }
 
             await Navigation.PopAsync();
         }
@@ -32,7 +39,7 @@ namespace TodoGenericRepo.Views
         async void OnDeleteClicked(object sender, EventArgs e)
         {
             var todoItem = (TodoItem)BindingContext;
-            await totoRepo.Delete(todoItem);
+            await totoRepo.DeleteAsync(todoItem);
             await Navigation.PopAsync();
         }
 

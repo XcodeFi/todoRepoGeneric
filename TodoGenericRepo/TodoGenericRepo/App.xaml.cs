@@ -92,7 +92,7 @@ namespace TodoGenericRepo
                         var todoPage = new TodoDetailPage();
                         new Task(async () =>
                         {
-                            todoPage.BindingContext = await totoRepo.Get(ResumeAtTodoId);
+                            todoPage.BindingContext = await totoRepo.GetAsync(ResumeAtTodoId);
                             await MainPage.Navigation.PushAsync(todoPage, false); // no animation
                         });
                     }
@@ -125,7 +125,7 @@ namespace TodoGenericRepo
                         var todoPage = new TodoDetailPage();
                         new Task(async () =>
                         {
-                            todoPage.BindingContext = await totoRepo.Get(ResumeAtTodoId);
+                            todoPage.BindingContext = await totoRepo.GetAsync(ResumeAtTodoId);
                             await MainPage.Navigation.PushAsync(todoPage, false); // no animation
                         });
                     }

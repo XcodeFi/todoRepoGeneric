@@ -38,8 +38,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Data\EntityController.cs" />
-    <Compile Include="Data\IEntityController.cs" />
+    <Compile Include="Data\BaseRepository.cs" />
+    <Compile Include="Data\IBaseRepository.cs" />
     <Compile Include="Data\TodoItemDatabase.cs" />
     <Compile Include="Data\TotoRepository.cs" />
     <Compile Include="IFileHelper.cs" />

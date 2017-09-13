@@ -7,9 +7,9 @@ using SQLite;
 
 namespace TodoGenericRepo.Data
 {
-    public class TotoRepository : EntityController<TodoItem>
+    public class TotoRepository : BaseRepository<TodoItem>
     {
-        public TotoRepository() : base(App.DbConnectionAsync)
+        public TotoRepository() : base(App.DbConnectionAsync,App.DbConnection)
         {
             App.DbConnectionAsync.CreateTableAsync<TodoItem>();
         }
