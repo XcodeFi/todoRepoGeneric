@@ -21,7 +21,16 @@ namespace TodoGenericRepo.Views
 
             // Reset the 'resume' id, since we just want to re-start here
             ((App)App.Current).ResumeAtTodoId = -1;
-            listView.ItemsSource = await totoRepo.GetAsync();
+            try
+            {
+                listView.ItemsSource = await totoRepo.GetAsync();
+            }
+            catch (Exception e)
+            {
+
+                Debug.WriteLine(e.Message);
+            }
+            
         }
 
         async void OnItemAdded(object sender, EventArgs e)

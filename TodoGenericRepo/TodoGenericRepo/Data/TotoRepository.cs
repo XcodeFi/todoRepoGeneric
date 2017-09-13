@@ -9,7 +9,7 @@ namespace TodoGenericRepo.Data
 {
     public class TotoRepository : BaseRepository<TodoItem>
     {
-        public TotoRepository() : base(App.DbConnectionAsync,App.DbConnection)
+        public TotoRepository() : base(App.DbConnectionAsync, App.DbConnection)
         {
             
         }

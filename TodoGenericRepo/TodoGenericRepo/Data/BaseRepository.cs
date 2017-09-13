@@ -14,18 +14,21 @@ namespace TodoGenericRepo.Data
     {
         private SQLiteAsyncConnection _dbAsync;
         private SQLiteConnection _db;
-        protected static object locker = new object();
-        //private bool IsExistsTable = false;
+        private static object locker = new object();
+        static bool _LocalDBExists;
+        public bool LocalDBExists => _LocalDBExists;
 
         public BaseRepository(SQLiteAsyncConnection dbAsync, SQLiteConnection db)
         {
             this._db = db;
             this._dbAsync = dbAsync;
-            if (!TableExists())
+            if (!LocalDBExists)
             {
-                _dbAsync.CreateTableAsync<T>();
+                dbAsync.CreateTableAsync<TodoItem>();
+                DbExists();
             }
         }
+        
 
         #region Async method
         public AsyncTableQuery<T> AsQueryableAsync()
@@ -186,13 +189,24 @@ namespace TodoGenericRepo.Data
         #endregion
 
         #region private method
-        bool TableExists()
+        protected bool TableExists()
         {
             lock (locker)
             {
                 const string cmdText = "SELECT name FROM sqlite_master WHERE type='table' AND name=?";
                 var cmd = _db.CreateCommand(cmdText, typeof(T).Name);
                 return cmd.ExecuteScalar<string>() != null;
+            }
+        }
+
+         bool DbExists()
+        {
+            lock (locker)
+            {
+                const string cmdText = "SELECT name FROM sqlite_master WHERE type='table'";
+                var cmd = _db.CreateCommand(cmdText);
+                _LocalDBExists= cmd.ExecuteScalar<string>() != null;
+                return _LocalDBExists;
             }
         }
         #endregion

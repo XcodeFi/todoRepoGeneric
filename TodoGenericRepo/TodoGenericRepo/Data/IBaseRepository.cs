@@ -12,27 +12,24 @@ namespace TodoGenericRepo.Data
 {
     public interface IBaseRepository<T> where T : Entity, new()
     {
-        List<T> Get();
+        #region Async Method
         Task<List<T>> GetAsync();
-
-        Task<T> GetAsync(int id);
-        T Get(int id);
-
-        AsyncTableQuery<T> AsQueryableAsync();
-        TableQuery<T> AsQueryable();
+        Task<T> GetAsync(int id); AsyncTableQuery<T> AsQueryableAsync();
         Task<int> CountAsync(Expression<Func<T, bool>> predicate = null);
-        int Count(Expression<Func<T, bool>> predicate = null);
         Task<int> DeleteAsync(T entity);
-        int Delete(T entity);
         Task<ObservableCollection<T>> GetAsync<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null);
-        ObservableCollection<T> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null);
         Task<T> GetAsync(Expression<Func<T, bool>> predicate);
-        T Get(Expression<Func<T, bool>> predicate);
-        Task<int> InsertAsync(T entity);
-        int Insert(T entity);
-
         Task<int> UpdateAsync(T entity);
+        Task<int> InsertAsync(T entity);
+        #endregion
+        List<T> Get();
+        T Get(int id);
+        TableQuery<T> AsQueryable();
+        int Count(Expression<Func<T, bool>> predicate = null);
+        int Delete(T entity);
+        ObservableCollection<T> Get<TValue>(Expression<Func<T, bool>> predicate = null, Expression<Func<T, TValue>> orderBy = null);
+        T Get(Expression<Func<T, bool>> predicate);
+        int Insert(T entity);
         int Update(T entity);
-
     }
 }
